@@ -24,6 +24,18 @@ public class Item {
         return basePrice;
     }
 
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setRarity(String rarity) {
+        this.rarity = rarity;
+    }
+
+    public void setBasePrice(double basePrice) {
+        this.basePrice = basePrice;
+    }
+
     @Override
     public String toString() {
         return name + " ( "  + rarity + ")";
