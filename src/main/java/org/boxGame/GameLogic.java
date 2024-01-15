@@ -32,15 +32,15 @@ public class GameLogic {
         Scanner scanner = new Scanner(System.in);
         System.out.println("Enter your name:");
         playerName = scanner.nextLine();
-        displayMessageOneLetterAtATime("Wake up, " + playerName, 300);
+        displayMessageOneLetterAtATime("Wake up, " + playerName, 250);
         simulationAfterLogin();
-        Thread.sleep(3000);
-        displayMessageOneLetterAtATime("Follow the white rabbit.", 300);
-        Thread.sleep(3000);
+        Thread.sleep(2000);
+        displayMessageOneLetterAtATime("Follow the white rabbit.", 250);
+        Thread.sleep(2000);
         System.out.println("  /\\_/\\\n" +
                 " ( o.o )\n" +
                 " > ^ <");
-        Thread.sleep(3000);
+        Thread.sleep(2000);
 
         boolean isPlaying = true;
 
