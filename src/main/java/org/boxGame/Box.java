@@ -26,4 +26,16 @@ public class Box {
         return items;
     }
 
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setPrice(double price) {
+        this.price = price;
+    }
+
+    public void setItems(List<Item> items) {
+        this.items = items;
+    }
+
 }
