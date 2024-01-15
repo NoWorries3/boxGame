@@ -1,13 +1,14 @@
 package org.boxGame;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class Box {
     private String name;
     private double price;
-    private ArrayList<String> items;
+    private List<Item> items;
 
-    public Box(String name, double price, ArrayList<String> items) {
+    public Box(String name, double price, List<Item> items) {
         this.name = name;
         this.price = price;
         this.items = items;
@@ -21,8 +22,8 @@ public class Box {
         return price;
     }
 
-    public ArrayList<String> getItems() {
-        return new ArrayList<>(items); // Return a copy to avoid direct modification
+    public List<Item> getItems() {
+        return items;
     }
 
 }
