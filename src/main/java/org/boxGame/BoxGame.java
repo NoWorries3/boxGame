@@ -76,6 +76,9 @@ public class BoxGame {
                 viewPurchasedBoxes();
                 break;
             case 2:
+                openBox(scanner);
+                break;
+            case 3:
                 // Just break to go back to the main menu
                 break;
             default:
@@ -112,6 +115,32 @@ public class BoxGame {
         }
     }
 
+    // Method to sell an item
+    public void sellItem(Scanner scanner) {
+        if (inventory.isEmpty()) {
+            System.out.println("Your inventory is empty.");
+            return;
+        }
+        System.out.println("Your Inventory: " + inventory);
+        System.out.println("Enter the name of the item to sell: ");
+        scanner.nextLine(); // Consume leftover newline
+        String itemToSell = scanner.nextLine();
+
+        if (inventory.remove(itemToSell)) {
+            double salePrice = getItemSalePrice(itemToSell); // Determine sale price based on item
+            balance += salePrice;
+            System.out.println(itemToSell + " sold for $" + salePrice);
+        } else {
+            System.out.println("Item not found in inventory.");
+        }
+    }
+
+    // Helper method to determine item sale price
+    private double getItemSalePrice(String item) {
+        // Implement more complex logic based on item
+        return 5.0;
+    }
+
     // Method to display player information
     public void displayPlayerInfo() {
         System.out.println("Player: " + playerName);
@@ -131,7 +160,8 @@ public class BoxGame {
             System.out.println("2. Buy Box");
             System.out.println("3. Display Info");
             System.out.println("4. Manage Inventory");
-            System.out.println("5. Exit");
+            System.out.println("5. Sell an Item");
+            System.out.println("6. Exit");
             System.out.print("Choose an option: ");
             int choice = scanner.nextInt();
             scanner.nextLine(); // Consume the leftover newline
@@ -149,6 +179,9 @@ public class BoxGame {
                     manageInventory(scanner);
                     break;
                 case 5:
+                    sellItem(scanner);
+                    break;
+                case 6:
                     isPlaying = false;
                     break;
                 default:

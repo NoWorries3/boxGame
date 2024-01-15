@@ -4,7 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="149c7fac-7cc4-4f26-bbce-9a363df69062" name="Changes" comment="Enhancing the Box System and Implementing Buying Logic">
+    <list default="true" id="149c7fac-7cc4-4f26-bbce-9a363df69062" name="Changes" comment="Improving Box Purchase, Managing Multiple Boxes, and Inventory Interaction">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/boxGame/BoxGame.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/boxGame/BoxGame.java" afterDir="false" />
     </list>
@@ -66,7 +66,7 @@
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "WebServerToolWindowFactoryState": "false",
-    "git-widget-placeholder": "v0.0.3",
+    "git-widget-placeholder": "v0.0.4",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -105,7 +105,7 @@
       <option name="presentableId" value="Default" />
       <updated>1705221166326</updated>
       <workItem from="1705221167390" duration="677000" />
-      <workItem from="1705288014642" duration="4862000" />
+      <workItem from="1705288014642" duration="5666000" />
     </task>
     <task id="LOCAL-00001" summary="Basic game system, main necessities are done.">
       <option name="closed" value="true" />
@@ -131,7 +131,15 @@
       <option name="project" value="LOCAL" />
       <updated>1705293308798</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="Improving Box Purchase, Managing Multiple Boxes, and Inventory Interaction">
+      <option name="closed" value="true" />
+      <created>1705294547113</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1705294547113</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -152,6 +160,7 @@
     <MESSAGE value="Basic game system, main necessities are done." />
     <MESSAGE value="Initialized core game structure with user interaction and basic functionalities" />
     <MESSAGE value="Enhancing the Box System and Implementing Buying Logic" />
-    <option name="LAST_COMMIT_MESSAGE" value="Enhancing the Box System and Implementing Buying Logic" />
+    <MESSAGE value="Improving Box Purchase, Managing Multiple Boxes, and Inventory Interaction" />
+    <option name="LAST_COMMIT_MESSAGE" value="Improving Box Purchase, Managing Multiple Boxes, and Inventory Interaction" />
   </component>
 </project>
