@@ -4,7 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="149c7fac-7cc4-4f26-bbce-9a363df69062" name="Changes" comment="Implement selling functionality and refine inventory management">
+    <list default="true" id="149c7fac-7cc4-4f26-bbce-9a363df69062" name="Changes" comment="Enhance game with randomized box contents and rarity system">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/boxGame/Box.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/boxGame/Box.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/boxGame/BoxGame.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/boxGame/BoxGame.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -65,7 +67,7 @@
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "WebServerToolWindowFactoryState": "false",
-    "git-widget-placeholder": "v0.0.5",
+    "git-widget-placeholder": "v0.0.6",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -104,7 +106,7 @@
       <option name="presentableId" value="Default" />
       <updated>1705221166326</updated>
       <workItem from="1705221167390" duration="677000" />
-      <workItem from="1705288014642" duration="5982000" />
+      <workItem from="1705288014642" duration="9945000" />
     </task>
     <task id="LOCAL-00001" summary="Basic game system, main necessities are done.">
       <option name="closed" value="true" />
@@ -146,7 +148,15 @@
       <option name="project" value="LOCAL" />
       <updated>1705295213954</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="Enhance game with randomized box contents and rarity system">
+      <option name="closed" value="true" />
+      <created>1705295723565</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1705295723565</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -169,6 +179,7 @@
     <MESSAGE value="Enhancing the Box System and Implementing Buying Logic" />
     <MESSAGE value="Improving Box Purchase, Managing Multiple Boxes, and Inventory Interaction" />
     <MESSAGE value="Implement selling functionality and refine inventory management" />
-    <option name="LAST_COMMIT_MESSAGE" value="Implement selling functionality and refine inventory management" />
+    <MESSAGE value="Enhance game with randomized box contents and rarity system" />
+    <option name="LAST_COMMIT_MESSAGE" value="Enhance game with randomized box contents and rarity system" />
   </component>
 </project>
