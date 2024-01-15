@@ -2,6 +2,7 @@ package org.boxGame;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 import java.util.Scanner;
 
 public class BoxGame {
@@ -115,6 +116,15 @@ public class BoxGame {
         }
     }
 
+    // Method to generate a box with random items
+    private Box generateRandomBox(Box baseBox) {
+        Random random = new Random();
+        ArrayList<String> randomItems = new ArrayList<>();
+        // Example logic for random item generation
+        randomItems.add("Items" + (random.nextInt(10) + 1)); // Generate random items
+        return new Box(baseBox.getName(), baseBox.getPrice(), randomItems);
+    }
+
     // Method to sell an item
     public void sellItem(Scanner scanner) {
         if (inventory.isEmpty()) {
@@ -138,6 +148,11 @@ public class BoxGame {
     // Helper method to determine item sale price
     private double getItemSalePrice(String item) {
         // Implement more complex logic based on item
+
+        // Example logic for determining price based on item rarity
+        if (item.contains("Rare")) {
+            return 20.0; // Higher price for rare items
+        }
         return 5.0;
     }
 
