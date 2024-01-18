@@ -4,10 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="149c7fac-7cc4-4f26-bbce-9a363df69062" name="Changes" comment="System overhaul, main menu changes, item sell menu changes, box sell menu changes">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+    <list default="true" id="149c7fac-7cc4-4f26-bbce-9a363df69062" name="Changes" comment="Quick Fix for:&#10;Stats, Calculations, Added Profit">
       <change beforePath="$PROJECT_DIR$/src/main/java/org/boxGame/GameLogic.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/boxGame/GameLogic.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/boxGame/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/boxGame/index.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -22,8 +20,8 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="Class" />
         <option value="HTML File" />
+        <option value="Class" />
       </list>
     </option>
   </component>
@@ -35,12 +33,12 @@
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
-  <component name="GitHubPullRequestSearchHistory"><![CDATA[{
-  "lastFilter": {
-    "state": "OPEN",
-    "assignee": "NoWorries3"
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;lastFilter&quot;: {
+    &quot;state&quot;: &quot;OPEN&quot;,
+    &quot;assignee&quot;: &quot;NoWorries3&quot;
   }
-}]]></component>
+}</component>
   <component name="GithubPullRequestsUISettings">
     <option name="selectedUrlAndAccountId">
       <UrlAndAccount>
@@ -69,7 +67,7 @@
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "WebServerToolWindowFactoryState": "false",
-    "git-widget-placeholder": "v0.0.9",
+    "git-widget-placeholder": "v0.1",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -182,7 +180,15 @@
       <option name="project" value="LOCAL" />
       <updated>1705309038599</updated>
     </task>
-    <option name="localTasksCounter" value="10" />
+    <task id="LOCAL-00010" summary="Quick Fix for:&#10;Stats, Calculations, Added Profit">
+      <option name="closed" value="true" />
+      <created>1705540467206</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1705540467206</updated>
+    </task>
+    <option name="localTasksCounter" value="11" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -209,6 +215,7 @@
     <MESSAGE value="Refactor Game Structure and Implement Dynamic Item Generation" />
     <MESSAGE value="Added 'Sell Back Boxes' Option, UI Improvements, and Quality of Life Upgrades" />
     <MESSAGE value="System overhaul, main menu changes, item sell menu changes, box sell menu changes" />
-    <option name="LAST_COMMIT_MESSAGE" value="System overhaul, main menu changes, item sell menu changes, box sell menu changes" />
+    <MESSAGE value="Quick Fix for:&#10;Stats, Calculations, Added Profit" />
+    <option name="LAST_COMMIT_MESSAGE" value="Quick Fix for:&#10;Stats, Calculations, Added Profit" />
   </component>
 </project>
