@@ -4,7 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="149c7fac-7cc4-4f26-bbce-9a363df69062" name="Changes" comment="Simulation sleeps reduced,display total stats updated, total lost removed">
+    <list default="true" id="149c7fac-7cc4-4f26-bbce-9a363df69062" name="Changes" comment="buyBox method is improved, rabbit is moving">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/boxGame/GameLogic.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/boxGame/GameLogic.java" afterDir="false" />
     </list>
@@ -197,7 +197,15 @@
       <option name="project" value="LOCAL" />
       <updated>1705540967436</updated>
     </task>
-    <option name="localTasksCounter" value="12" />
+    <task id="LOCAL-00012" summary="buyBox method is improved, rabbit is moving">
+      <option name="closed" value="true" />
+      <created>1705542048294</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1705542048294</updated>
+    </task>
+    <option name="localTasksCounter" value="13" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -226,6 +234,7 @@
     <MESSAGE value="System overhaul, main menu changes, item sell menu changes, box sell menu changes" />
     <MESSAGE value="Quick Fix for:&#10;Stats, Calculations, Added Profit" />
     <MESSAGE value="Simulation sleeps reduced,display total stats updated, total lost removed" />
-    <option name="LAST_COMMIT_MESSAGE" value="Simulation sleeps reduced,display total stats updated, total lost removed" />
+    <MESSAGE value="buyBox method is improved, rabbit is moving" />
+    <option name="LAST_COMMIT_MESSAGE" value="buyBox method is improved, rabbit is moving" />
   </component>
 </project>

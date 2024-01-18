@@ -37,6 +37,7 @@ public class GameLogic {
         displayMessageOneLetterAtATime("Wake up, " + playerName, 100);
         simulationAfterLogin();
         Thread.sleep(1000);
+        displayMessageOneLetterAtATime("Follow the white rabbit", 100);
         followTheWhiteRabbit();
         Thread.sleep(1000);
 
@@ -394,13 +395,24 @@ public class GameLogic {
     }
 
     public void followTheWhiteRabbit() throws InterruptedException {
-        final String message = "Follow the white rabbit.  /\\_/\\ ( o.o ) > ^ <";
-        final int width = 30; // Width of the console window or desired movement area
+        final String[] rabbitLines = {
+                "  /\\_/\\",
+                " ( o.o )",
+                "  > ^ <"
+        };
+        final int steps = 10; // Number of steps to move the rabbit
+        final int delay = 1000; // Delay in milliseconds for each step
 
-        for (int i = 0; i < width; i++) {
+        for (int i = 0; i < steps; i++) {
+            // Clear the console (optional, if supported)
             clearConsole();
-            System.out.println(String.format("%" + (i + message.length()) + "s", message));
-            Thread.sleep(200); // Delay in milliseconds
+
+            // Print each line of the rabbit, shifted by 'i' spaces
+            for (String line : rabbitLines) {
+                System.out.print(String.format("%" + (i + line.length()) + "s", line) + "\n");
+            }
+
+            Thread.sleep(delay); // Wait for a specified delay between steps
         }
     }
 
@@ -409,6 +421,7 @@ public class GameLogic {
         System.out.print("\033[H\033[2J");
         System.out.flush();
     }
+
 
 
 }
