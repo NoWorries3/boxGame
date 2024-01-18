@@ -4,7 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="149c7fac-7cc4-4f26-bbce-9a363df69062" name="Changes" comment="buyBox method is improved, rabbit is moving" />
+    <list default="true" id="85154305-2c33-4ad2-8ec0-dad0d71b732d" name="Changes" comment="Fix buyBox">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -15,219 +17,32 @@
       <ProjectState />
     </projectState>
   </component>
-  <component name="FileTemplateManagerImpl">
-    <option name="RECENT_TEMPLATES">
-      <list>
-        <option value="HTML File" />
-        <option value="Class" />
-      </list>
-    </option>
+  <component name="ExternalProjectsManager">
+    <system id="GRADLE">
+      <state>
+        <projects_view>
+          <tree_state>
+            <expand />
+            <select />
+          </tree_state>
+        </projects_view>
+      </state>
+    </system>
   </component>
-  <component name="Git.Settings">
-    <option name="RECENT_BRANCH_BY_REPOSITORY">
-      <map>
-        <entry key="$PROJECT_DIR$" value="v0.2" />
-      </map>
-    </option>
-    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
-  </component>
-  <component name="GitHubPullRequestSearchHistory">{
-  &quot;lastFilter&quot;: {
-    &quot;state&quot;: &quot;OPEN&quot;,
-    &quot;assignee&quot;: &quot;NoWorries3&quot;
-  }
-}</component>
-  <component name="GithubPullRequestsUISettings">
-    <option name="selectedUrlAndAccountId">
-      <UrlAndAccount>
-        <option name="accountId" value="d4ca28ed-f816-48e9-acf5-19316f0008d2" />
-        <option name="url" value="https://github.com/NoWorries3/boxGame.git" />
-      </UrlAndAccount>
-    </option>
-  </component>
-  <component name="MarkdownSettingsMigration">
-    <option name="stateVersion" value="1" />
-  </component>
-  <component name="ProjectColorInfo">{
-  &quot;associatedIndex&quot;: 8
-}</component>
-  <component name="ProjectId" id="2awEIsnDVAGIhyk65gEyZCk1ns3" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true">
     <ConfirmationsSetting value="1" id="Add" />
   </component>
-  <component name="ProjectViewState">
-    <option name="hideEmptyMiddlePackages" value="true" />
-    <option name="showLibraryContents" value="true" />
-  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "git-widget-placeholder": "master",
+    "node.js.selected.package.tslint": "(autodetect)"
   }
-}</component>
-  <component name="RunManager">
-    <configuration name="BoxGame" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="org.boxGame.BoxGame" />
-      <module name="boxGame.main" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="org.boxGame.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <recent_temporary>
-      <list>
-        <item itemvalue="Application.BoxGame" />
-        <item itemvalue="Application.BoxGame" />
-      </list>
-    </recent_temporary>
-  </component>
-  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+}]]></component>
   <component name="TaskManager">
-    <task active="true" id="Default" summary="Default task">
-      <changelist id="149c7fac-7cc4-4f26-bbce-9a363df69062" name="Changes" comment="" />
-      <created>1705221166326</created>
-      <option name="number" value="Default" />
-      <option name="presentableId" value="Default" />
-      <updated>1705221166326</updated>
-      <workItem from="1705221167390" duration="677000" />
-      <workItem from="1705288014642" duration="20035000" />
-    </task>
-    <task id="LOCAL-00001" summary="Basic game system, main necessities are done.">
-      <option name="closed" value="true" />
-      <created>1705289052877</created>
-      <option name="number" value="00001" />
-      <option name="presentableId" value="LOCAL-00001" />
-      <option name="project" value="LOCAL" />
-      <updated>1705289052877</updated>
-    </task>
-    <task id="LOCAL-00002" summary="Initialized core game structure with user interaction and basic functionalities">
-      <option name="closed" value="true" />
-      <created>1705291188104</created>
-      <option name="number" value="00002" />
-      <option name="presentableId" value="LOCAL-00002" />
-      <option name="project" value="LOCAL" />
-      <updated>1705291188104</updated>
-    </task>
-    <task id="LOCAL-00003" summary="Enhancing the Box System and Implementing Buying Logic">
-      <option name="closed" value="true" />
-      <created>1705293308798</created>
-      <option name="number" value="00003" />
-      <option name="presentableId" value="LOCAL-00003" />
-      <option name="project" value="LOCAL" />
-      <updated>1705293308798</updated>
-    </task>
-    <task id="LOCAL-00004" summary="Improving Box Purchase, Managing Multiple Boxes, and Inventory Interaction">
-      <option name="closed" value="true" />
-      <created>1705294547113</created>
-      <option name="number" value="00004" />
-      <option name="presentableId" value="LOCAL-00004" />
-      <option name="project" value="LOCAL" />
-      <updated>1705294547113</updated>
-    </task>
-    <task id="LOCAL-00005" summary="Implement selling functionality and refine inventory management">
-      <option name="closed" value="true" />
-      <created>1705295213954</created>
-      <option name="number" value="00005" />
-      <option name="presentableId" value="LOCAL-00005" />
-      <option name="project" value="LOCAL" />
-      <updated>1705295213954</updated>
-    </task>
-    <task id="LOCAL-00006" summary="Enhance game with randomized box contents and rarity system">
-      <option name="closed" value="true" />
-      <created>1705295723565</created>
-      <option name="number" value="00006" />
-      <option name="presentableId" value="LOCAL-00006" />
-      <option name="project" value="LOCAL" />
-      <updated>1705295723565</updated>
-    </task>
-    <task id="LOCAL-00007" summary="Refactor Game Structure and Implement Dynamic Item Generation">
-      <option name="closed" value="true" />
-      <created>1705299657055</created>
-      <option name="number" value="00007" />
-      <option name="presentableId" value="LOCAL-00007" />
-      <option name="project" value="LOCAL" />
-      <updated>1705299657055</updated>
-    </task>
-    <task id="LOCAL-00008" summary="Added 'Sell Back Boxes' Option, UI Improvements, and Quality of Life Upgrades">
-      <option name="closed" value="true" />
-      <created>1705306250571</created>
-      <option name="number" value="00008" />
-      <option name="presentableId" value="LOCAL-00008" />
-      <option name="project" value="LOCAL" />
-      <updated>1705306250571</updated>
-    </task>
-    <task id="LOCAL-00009" summary="System overhaul, main menu changes, item sell menu changes, box sell menu changes">
-      <option name="closed" value="true" />
-      <created>1705309038599</created>
-      <option name="number" value="00009" />
-      <option name="presentableId" value="LOCAL-00009" />
-      <option name="project" value="LOCAL" />
-      <updated>1705309038599</updated>
-    </task>
-    <task id="LOCAL-00010" summary="Quick Fix for:&#10;Stats, Calculations, Added Profit">
-      <option name="closed" value="true" />
-      <created>1705540467206</created>
-      <option name="number" value="00010" />
-      <option name="presentableId" value="LOCAL-00010" />
-      <option name="project" value="LOCAL" />
-      <updated>1705540467206</updated>
-    </task>
-    <task id="LOCAL-00011" summary="Simulation sleeps reduced,display total stats updated, total lost removed">
-      <option name="closed" value="true" />
-      <created>1705540967436</created>
-      <option name="number" value="00011" />
-      <option name="presentableId" value="LOCAL-00011" />
-      <option name="project" value="LOCAL" />
-      <updated>1705540967436</updated>
-    </task>
-    <task id="LOCAL-00012" summary="buyBox method is improved, rabbit is moving">
-      <option name="closed" value="true" />
-      <created>1705542048294</created>
-      <option name="number" value="00012" />
-      <option name="presentableId" value="LOCAL-00012" />
-      <option name="project" value="LOCAL" />
-      <updated>1705542048294</updated>
-    </task>
-    <task id="LOCAL-00013" summary="Quick fix int limit">
-      <option name="closed" value="true" />
-      <created>1705542987548</created>
-      <option name="number" value="00013" />
-      <option name="presentableId" value="LOCAL-00013" />
-      <option name="project" value="LOCAL" />
-      <updated>1705542987548</updated>
-    </task>
-    <option name="localTasksCounter" value="14" />
     <servers />
   </component>
-  <component name="TypeScriptGeneratedFilesManager">
-    <option name="version" value="3" />
-  </component>
-  <component name="Vcs.Log.Tabs.Properties">
-    <option name="TAB_STATES">
-      <map>
-        <entry key="MAIN">
-          <value>
-            <State />
-          </value>
-        </entry>
-      </map>
-    </option>
-  </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Basic game system, main necessities are done." />
-    <MESSAGE value="Initialized core game structure with user interaction and basic functionalities" />
-    <MESSAGE value="Enhancing the Box System and Implementing Buying Logic" />
-    <MESSAGE value="Improving Box Purchase, Managing Multiple Boxes, and Inventory Interaction" />
-    <MESSAGE value="Implement selling functionality and refine inventory management" />
-    <MESSAGE value="Enhance game with randomized box contents and rarity system" />
-    <MESSAGE value="Refactor Game Structure and Implement Dynamic Item Generation" />
-    <MESSAGE value="Added 'Sell Back Boxes' Option, UI Improvements, and Quality of Life Upgrades" />
-    <MESSAGE value="System overhaul, main menu changes, item sell menu changes, box sell menu changes" />
-    <MESSAGE value="Quick Fix for:&#10;Stats, Calculations, Added Profit" />
-    <MESSAGE value="Simulation sleeps reduced,display total stats updated, total lost removed" />
-    <MESSAGE value="buyBox method is improved, rabbit is moving" />
-    <MESSAGE value="Quick fix int limit" />
-    <option name="LAST_COMMIT_MESSAGE" value="Quick fix int limit" />
+    <MESSAGE value="Fix buyBox" />
+    <option name="LAST_COMMIT_MESSAGE" value="Fix buyBox" />
   </component>
 </project>
