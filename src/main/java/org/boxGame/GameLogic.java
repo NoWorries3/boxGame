@@ -9,6 +9,8 @@ import java.util.Scanner;
 public class GameLogic {
     private String playerName; // Store player's name
     private double balance; // Store player's balance
+    double totalEarnedFromSelling = 0; // New variable to track the total earnings from selling items
+    private double totalDeposited = 0; // To track total amount deposited
     private ArrayList<Item> inventory;
     private ArrayList<Box> availableBoxes; // List of available boxes
     private ArrayList<Box> purchasedBoxes; // To store purchased but unopened boxes
@@ -58,6 +60,7 @@ public class GameLogic {
                 int choice = Integer.parseInt(input);
                 switch (choice) {
                     case 1:
+
                         depositMoney(scanner);
                         depositCount++;
                         totalDeposited += balance;
@@ -77,7 +80,7 @@ public class GameLogic {
                         sellBackBoxes(scanner);
                         break;
                     case 6:
-                        displayTotalStats(depositCount, totalDeposited, totalSpent, totalWon, totalLost, totalRTP);
+                        displayTotalStats(depositCount, totalDeposited, totalSpent, totalWon, totalLost);
                         break;
                     case 7:
                         isPlaying = false;
@@ -139,6 +142,7 @@ public class GameLogic {
         System.out.print("Enter amount to deposit: ");
         double amount = safeNextDouble(scanner);
         balance += amount;
+        totalDeposited = amount; // Corrected to add only the deposited amount
         System.out.println("$" + amount + " added to your balance");
         scanner.nextLine(); // Consume the leftover newline character
     }
@@ -239,6 +243,7 @@ public class GameLogic {
             Item itemToSell = inventory.remove(itemIndex);
             double salePrice = getItemSalePrice(itemToSell);
             balance += salePrice;
+            totalEarnedFromSelling += salePrice; // Update total earned from selling
             System.out.println(itemToSell.getName() + " sold for $" + salePrice);
         } else {
             System.out.println("Invalid item selection.");
@@ -268,21 +273,19 @@ public class GameLogic {
     }
 
     // New method to display total statistics
-    private void displayTotalStats(int depositCount, double totalDeposited, double totalSpent,
-                                   double totalWon, double totalLost, double totalRTP) {
+    private void displayTotalStats(int depositCount, double totalDeposited, double totalSpent, double totalWon, double totalLost) {
+        double profit = totalEarnedFromSelling - totalSpent;
+        totalLost = Math.max(0, totalSpent - totalWon); // Corrected to calculate totalLost
+
         System.out.println("\nTotal Stats:");
         System.out.println("Deposits Made: " + depositCount);
-        System.out.println("Total Deposited: $" + totalDeposited);
-        System.out.println("Total Spent on Boxes: $" + totalSpent);
-        System.out.println("Total Won from Boxes: $" + totalWon);
-        System.out.println("Total Lost: $" + (totalSpent - totalWon));
-        if (totalDeposited > 0) {
-            totalRTP = (totalWon / totalDeposited) * 100;
-            System.out.println("Rate of Return to Player (RTP): " + totalRTP + "%");
-        } else {
-            System.out.println("Rate of Return to Player (RTP): N/A (No deposits made)");
-        }
+        System.out.println("Total Deposited: $" + String.format("%.2f", totalDeposited));
+        System.out.println("Total Spent on Boxes: $" + String.format("%.2f", totalSpent));
+        System.out.println("Total Earned from Selling Items: $" + String.format("%.2f", totalEarnedFromSelling));
+        System.out.println("Profit: $" + String.format("%.2f", profit));
+        System.out.println("Total Lost: $" + String.format("%.2f", totalLost));
     }
+
 
     // Calculate the sell-back price (e.g., 50% of the original price)
     private double calculateSellBackPrice(Box box) {
