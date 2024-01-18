@@ -4,10 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="149c7fac-7cc4-4f26-bbce-9a363df69062" name="Changes" comment="buyBox method is improved, rabbit is moving">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/boxGame/GameLogic.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/boxGame/GameLogic.java" afterDir="false" />
-    </list>
+    <list default="true" id="149c7fac-7cc4-4f26-bbce-9a363df69062" name="Changes" comment="buyBox method is improved, rabbit is moving" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -29,7 +26,7 @@
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
-        <entry key="$PROJECT_DIR$" value="master" />
+        <entry key="$PROJECT_DIR$" value="v0.2" />
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -68,7 +65,7 @@
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "WebServerToolWindowFactoryState": "false",
-    "git-widget-placeholder": "v0.2",
+    "git-widget-placeholder": "master",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -94,6 +91,7 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Application.BoxGame" />
         <item itemvalue="Application.BoxGame" />
       </list>
     </recent_temporary>
