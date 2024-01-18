@@ -145,43 +145,46 @@ public class GameLogic {
 
     // Method for buying a box
     public void buyBox(Scanner scanner) {
-        boolean validSelection = false;
-        int boxIndex = -1;
+        System.out.println("Available Boxes:");
+        for (int i = 0; i < availableBoxes.size(); i++) {
+            Box box = availableBoxes.get(i);
+            System.out.println((i + 1) + ". " + box.getName() + " - $" + box.getPrice());
+        }
+        System.out.print("Enter the number of the box to buy: ");
+        int boxIndex = safeNextInt(scanner) - 1;
+        scanner.nextLine(); // Consume the newline character after reading an integer
 
-        while (!validSelection) {
-            System.out.println("Available Boxes:");
-            for (int i = 0; i < availableBoxes.size(); i++) {
-                Box box = availableBoxes.get(i);
-                System.out.println((i + 1) + ". " + box.getName() + " - $" + box.getPrice());
-            }
-
-            System.out.print("Enter the number of the box to buy: ");
-            boxIndex = safeNextInt(scanner) - 1;
-            scanner.nextLine(); // Consume the newline character after reading an integer
-
-            // Check if the selected box number is valid
-            if (boxIndex >= 0 && boxIndex < availableBoxes.size()) {
-                validSelection = true;
-            } else {
-                System.out.println("Invalid box selection. Please try again.");
-            }
+        if (boxIndex < 0 || boxIndex >= availableBoxes.size()) {
+            System.out.println("Invalid box selection.");
+            return;
         }
 
         System.out.print("Enter the quantity of boxes to buy: ");
         int quantity = safeNextInt(scanner);
         scanner.nextLine(); // Consume the newline character after reading an integer
 
-        Box selectedBox = availableBoxes.get(boxIndex);
-        double totalCost = selectedBox.getPrice() * quantity;
-        if (balance >= totalCost) {
-            balance -= totalCost;
-            for (int i = 0; i < quantity; i++) {
-                purchasedBoxes.add(selectedBox);
-            }
-            System.out.println("You bought " + quantity + " " + selectedBox.getName() + "(s)!");
-        } else {
-            System.out.println("Insufficient balance to complete this purchase.");
+        // Define a maximum quantity
+        final int MAX_QUANTITY = 10000; // Adjust as needed
+        if (quantity <= 0 || quantity > MAX_QUANTITY) {
+            System.out.println("Invalid quantity. Please enter a number between 1 and " + MAX_QUANTITY + ".");
+            return;
         }
+
+        Box selectedBox = availableBoxes.get(boxIndex);
+        long totalCost = (long) selectedBox.getPrice() * quantity;
+
+        // Check if total cost exceeds the user's balance
+        if (balance < totalCost) {
+            System.out.println("Insufficient balance to complete this purchase.");
+            return;
+        }
+
+        // Process the purchase
+        balance -= totalCost;
+        for (int i = 0; i < quantity; i++) {
+            purchasedBoxes.add(selectedBox);
+        }
+        System.out.println("You bought " + quantity + " " + selectedBox.getName() + "(s)!");
     }
 
 
