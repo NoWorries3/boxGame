@@ -34,15 +34,15 @@ public class GameLogic {
         Scanner scanner = new Scanner(System.in);
         System.out.println("Enter your name:");
         playerName = scanner.nextLine();
-        displayMessageOneLetterAtATime("Wake up, " + playerName, 250);
+        displayMessageOneLetterAtATime("Wake up, " + playerName, 100);
         simulationAfterLogin();
-        Thread.sleep(2000);
-        displayMessageOneLetterAtATime("Follow the white rabbit.", 250);
-        Thread.sleep(2000);
+        Thread.sleep(1000);
+        displayMessageOneLetterAtATime("Follow the white rabbit.", 100);
+        Thread.sleep(1000);
         System.out.println("  /\\_/\\\n" +
                 " ( o.o )\n" +
                 " > ^ <");
-        Thread.sleep(2000);
+        Thread.sleep(1000);
 
         boolean isPlaying = true;
 
@@ -50,7 +50,6 @@ public class GameLogic {
         double totalDeposited = 0; // To track the total amount deposited
         double totalSpent = 0; // To track the total amount spent on box purchases
         double totalWon = 0; // To track the total amount won from opening boxes
-        double totalLost = 0; // To track the total amount lost
         double totalRTP = 0; // To calculate the rate of Return to Player (RTP)
 
         while (isPlaying) {
@@ -80,7 +79,7 @@ public class GameLogic {
                         sellBackBoxes(scanner);
                         break;
                     case 6:
-                        displayTotalStats(depositCount, totalDeposited, totalSpent, totalWon, totalLost);
+                        displayTotalStats(depositCount, totalDeposited, totalSpent);
                         break;
                     case 7:
                         isPlaying = false;
@@ -273,9 +272,9 @@ public class GameLogic {
     }
 
     // New method to display total statistics
-    private void displayTotalStats(int depositCount, double totalDeposited, double totalSpent, double totalWon, double totalLost) {
+    private void displayTotalStats(int depositCount, double totalDeposited, double totalSpent) {
         double profit = totalEarnedFromSelling - totalSpent;
-        totalLost = Math.max(0, totalSpent - totalWon); // Corrected to calculate totalLost
+        double totalRTP = (totalSpent > 0) ? (totalEarnedFromSelling / totalSpent) * 100 : 0; // Calculate RTP
 
         System.out.println("\nTotal Stats:");
         System.out.println("Deposits Made: " + depositCount);
@@ -283,8 +282,9 @@ public class GameLogic {
         System.out.println("Total Spent on Boxes: $" + String.format("%.2f", totalSpent));
         System.out.println("Total Earned from Selling Items: $" + String.format("%.2f", totalEarnedFromSelling));
         System.out.println("Profit: $" + String.format("%.2f", profit));
-        System.out.println("Total Lost: $" + String.format("%.2f", totalLost));
+        System.out.println("Rate of Return to Player (RTP): " + String.format("%.2f", totalRTP) + "%");
     }
+
 
 
     // Calculate the sell-back price (e.g., 50% of the original price)
@@ -329,7 +329,7 @@ public class GameLogic {
     private void simulationAfterLogin() {
         try {
             for (int i = 0; i < 3; i++) {
-                Thread.sleep(1000); // Wait for 1 second
+                Thread.sleep(500); // Wait for 0.5 second
                 System.out.print(".");
             }
             System.out.println();
