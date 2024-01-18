@@ -46,6 +46,18 @@ java GameLogic
 - Collect valuable and rare items to increase your winnings.
 - Keep an eye on your balance and make strategic decisions to maximize your profit.
 
+## Box Design:
+- Bronze Box: Cheapest, mostly common items, rare chances for better items.
+- Silver Box: Moderately priced, better odds for uncommon and rare items.
+- Gold Box: Higher price, good chances for rare items, and a small chance for legendary items.
+- Platinum Box: Most expensive, highest chances for rare and legendary items.
+
+## Item Distribution:
+- Common Items: 60% of the pool
+- Uncommon Items: 25% of the pool
+- Rare Items: 10% of the pool
+- Legendary Items: 5% of the pool
+
 ## Contributors
 
 - peace ([NoWorries3](https://github.com/NoWorries3))

@@ -135,39 +135,47 @@ public class GameLogic {
 
     // Method for player to deposit money
     public void depositMoney(Scanner scanner) {
-        System.out.print("Enter amount to deposit: ");
+        System.out.print("Enter amount to deposit (Max $10,000): ");
         double amount = safeNextDouble(scanner);
-        balance += amount;
-        totalDeposited = amount; // Corrected to add only the deposited amount
-        System.out.println("$" + String.format("%.2f", amount) + " added to your balance");
         scanner.nextLine(); // Consume the leftover newline character
+
+        final double MAX_DEPOSIT = 10000.00;
+        if (amount > 0 && amount <= MAX_DEPOSIT) {
+            balance += amount;
+            System.out.println("\n$" + String.format("%.2f", amount) + " added to your balance\n");
+        } else {
+            System.out.println("\nInvalid deposit amount. Please enter a value up to $10,000.\n");
+        }
     }
+
+
 
     // Method for buying a box
     public void buyBox(Scanner scanner) {
-        int boxIndex = -1;
-        while (true) {
-            System.out.println("Available Boxes:");
-            for (int i = 0; i < availableBoxes.size(); i++) {
-                Box box = availableBoxes.get(i);
-                System.out.println((i + 1) + ". " + box.getName() + " - $" + box.getPrice());
-            }
-            System.out.print("Enter the number of the box to buy (or 0 to cancel): ");
-            boxIndex = safeNextInt(scanner) - 1;
-            scanner.nextLine(); // Consume the newline character
-
-            if (boxIndex == -1) {
-                return; // User chose to cancel
-            } else if (boxIndex >= 0 && boxIndex < availableBoxes.size()) {
-                break; // Valid selection
-            } else {
-                System.out.println("Invalid box selection. Please try again.");
-            }
+        System.out.println("Available Boxes:");
+        for (int i = 0; i < availableBoxes.size(); i++) {
+            Box box = availableBoxes.get(i);
+            System.out.println((i + 1) + ". " + box.getName() + " - $" + box.getPrice());
         }
 
-        System.out.print("Enter the quantity of boxes to buy: ");
+        System.out.print("Enter the number of the box to buy: ");
+        int boxIndex = safeNextInt(scanner) - 1;
+        scanner.nextLine(); // Consume the newline character after reading an integer
+
+        if (boxIndex < 0 || boxIndex >= availableBoxes.size()) {
+            System.out.println("\nInvalid box selection.\n");
+            return;
+        }
+
+        final int MAX_BOXES = 1000;
+        System.out.print("Enter the quantity of boxes to buy (Max 1000): ");
         int quantity = safeNextInt(scanner);
         scanner.nextLine(); // Consume the newline character
+
+        if (quantity <= 0 || quantity > MAX_BOXES) {
+            System.out.println("\nInvalid quantity. Please enter a number up to 1000.\n");
+            return;
+        }
 
         Box selectedBox = availableBoxes.get(boxIndex);
         double totalCost = selectedBox.getPrice() * quantity;
@@ -182,7 +190,6 @@ public class GameLogic {
             System.out.println("Insufficient balance to complete this purchase.");
         }
     }
-
 
 
     // Method to view purchased but unopened boxes
@@ -259,7 +266,7 @@ public class GameLogic {
     // Implement the sellBackBoxes method
     private void sellBackBoxes(Scanner scanner) {
         if (purchasedBoxes.isEmpty()) {
-            System.out.println("You don't have any boxes to sell back.");
+            System.out.println("\nYou don't have any boxes to sell back.\n");
             return;
         }
         viewPurchasedBoxes();
@@ -274,7 +281,7 @@ public class GameLogic {
             purchasedBoxes.remove(boxIndex);
             System.out.println("You sold back " + boxToSell.getName() + " for $" + sellBackPrice);
         } else {
-            System.out.println("Invalid box selection.");
+            System.out.println("\nInvalid box selection.\n");
         }
     }
 
@@ -324,7 +331,7 @@ public class GameLogic {
         try {
             System.out.print("Opening");
             for (int i = 0; i < 3; i++) {
-                Thread.sleep(1000); // Wait for 1 second
+                Thread.sleep(500); // Wait for 1 second
                 System.out.print(".");
             }
             System.out.println();
