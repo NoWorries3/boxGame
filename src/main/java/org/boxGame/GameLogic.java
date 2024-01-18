@@ -6,41 +6,41 @@ import java.util.Date;
 import java.util.List;
 import java.util.Scanner;
 
+import static org.boxGame.GameUtils.generateItemsForBox;
+
 public class GameLogic {
-    private String playerName; // Store player's name
-    private double balance; // Store player's balance
-    double totalEarnedFromSelling = 0; // New variable to track the total earnings from selling items
-    private double totalDeposited = 0; // To track total amount deposited
-    private ArrayList<Item> inventory;
-    private ArrayList<Box> availableBoxes; // List of available boxes
-    private ArrayList<Box> purchasedBoxes; // To store purchased but unopened boxes
+    private String playerName;
+    private double balance;
+    private double totalEarnedFromSelling = 0;
+    private double totalDeposited = 0;
+    private List<Item> inventory;
+    private List<Box> purchasedBoxes;
+    private List<Box> availableBoxes = new ArrayList<>(); // Declare and initialize the available boxes list
+    private List<Box> playerInventory = new ArrayList<>();
 
     // Constructor
     public GameLogic() {
         inventory = new ArrayList<>(); // Initialize inventory as an empty list
         balance = 0; // Set initial balance to 0
-        availableBoxes = new ArrayList<>(); // Initialize availableBoxes as an empty list
         purchasedBoxes = new ArrayList<>();
-
-        // Initialize available boxes as per the grade-based system
-        availableBoxes.add(GameUtils.generateBox("Bronze Box"));
-        availableBoxes.add(GameUtils.generateBox("Silver Box"));
-        availableBoxes.add(GameUtils.generateBox("Gold Box"));
-        availableBoxes.add(GameUtils.generateBox("Platinum Box"));
-        // Repeat or adjust as needed
+        availableBoxes = new ArrayList<>(); // Initialize availble boxes list in the constructor
+        initializeAvailableBoxes();
     }
 
     public void startGame() throws InterruptedException {
         Scanner scanner = new Scanner(System.in);
         System.out.println("Enter your name:");
         playerName = scanner.nextLine();
+
+        /*
         displayMessageOneLetterAtATime("Wake up, " + playerName, 100);
         simulationAfterLogin();
         Thread.sleep(1000);
         displayMessageOneLetterAtATime("Follow the white rabbit", 100);
         followTheWhiteRabbit();
         Thread.sleep(1000);
-
+*/
+        followTheWhiteRabbit();
         boolean isPlaying = true;
 
         int depositCount = 0; // To track the number of deposits
@@ -135,11 +135,11 @@ public class GameLogic {
 
     // Method for player to deposit money
     public void depositMoney(Scanner scanner) {
-        System.out.print("Enter amount to deposit (Max $10,000): ");
+        System.out.print("Enter amount to deposit (Max $1,000): ");
         double amount = safeNextDouble(scanner);
         scanner.nextLine(); // Consume the leftover newline character
 
-        final double MAX_DEPOSIT = 10000.00;
+        final double MAX_DEPOSIT = 1000.00;
         if (amount > 0 && amount <= MAX_DEPOSIT) {
             balance += amount;
             System.out.println("\n$" + String.format("%.2f", amount) + " added to your balance\n");
@@ -147,6 +147,14 @@ public class GameLogic {
             System.out.println("\nInvalid deposit amount. Please enter a value up to $10,000.\n");
         }
     }
+
+    private void initializeAvailableBoxes() {
+        availableBoxes.add(new Box("Bronze Box", 31.15, generateItemsForBox("Bronze Box")));
+        availableBoxes.add(new Box("Silver Box", 81.93, generateItemsForBox("Silver Box")));
+        availableBoxes.add(new Box("Gold Box", 183.23, generateItemsForBox("Gold Box")));
+        availableBoxes.add(new Box("Platinum Box", 740.63, generateItemsForBox("Platinum Box")));
+    }
+
 
 
 
@@ -184,12 +192,16 @@ public class GameLogic {
             balance -= totalCost;
             for (int i = 0; i < quantity; i++) {
                 purchasedBoxes.add(selectedBox);
+
+                // Generate a new box and add it to available boxes
+                availableBoxes.add(GameUtils.generateBox(selectedBox.getName()));
             }
             System.out.println("You bought " + quantity + " " + selectedBox.getName() + "(s)!");
         } else {
             System.out.println("Insufficient balance to complete this purchase.");
         }
     }
+
 
 
     // Method to view purchased but unopened boxes
@@ -221,6 +233,9 @@ public class GameLogic {
             Box boxToOpen = purchasedBoxes.remove(boxIndex);
             System.out.println("You opened " + boxToOpen.getName() + " and found:");
 
+            // Generate random items for the box when it is opened
+            boxToOpen.setItems(generateItemsForBox(boxToOpen.getName()));
+
             // Display the items won
             for (Item item : boxToOpen.getItems()) {
                 System.out.println("- " + item.getName() + " - $" + item.getBasePrice());
@@ -231,6 +246,7 @@ public class GameLogic {
             System.out.println("Invalid box selection.");
         }
     }
+
 
     // Helper method to determine item sale price
     private double getItemSalePrice(Item item) {

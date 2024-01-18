@@ -6,22 +6,17 @@ import java.util.Random;
 
 public class GameUtils {
     private static final Random random = new Random();
+    private static Item previousSelectedItem = null;
     private static final Item[] commonItems = {
+            new Item("Iron Nail", "Common", 0.30),
+            new Item("Glass Marbles", "Common", 0.50),
+            new Item("Clay Pot", "Common", 0.75),
             new Item("Old Coin", "Common", 1.00),
+            new Item("Brass Ring", "Common", 1.25),
             new Item("Worn-Out Gloves", "Common", 1.50),
             new Item("Basic Compass", "Common", 2.00),
             new Item("Wooden Figurine", "Common", 2.50),
             new Item("Rusty Key", "Common", 3.00),
-            new Item("Clay Pot", "Common", 0.75),
-            new Item("Brass Ring", "Common", 1.25),
-            new Item("Glass Marbles", "Common", 0.50),
-            new Item("Iron Nail", "Common", 0.30),
-            new Item("Cotton Scarf", "Common", 1.80),
-            new Item("Leather Strap", "Common", 1.20),
-            new Item("Wool Socks", "Common", 1.00),
-            new Item("Copper Coin", "Common", 0.60),
-            new Item("Ceramic Bowl", "Common", 2.00),
-            new Item("Wooden Spoon", "Common", 0.90)
     };
 
     private static final Item[] uncommonItems = {
@@ -78,6 +73,17 @@ public class GameUtils {
             new Item("Amulet of the Ages", "Legendary", 700.00)
     };
 
+    private static final double BRONZE_BOX_PRICE = 31.15;
+    private static final double SILVER_BOX_PRICE = 81.93;
+    private static final double GOLD_BOX_PRICE = 183.23;
+    private static final double PLATINUM_BOX_PRICE = 740.63;
+
+    private static final double[] BRONZE_BOX_PROBABILITIES = {0.996, 0.998, 0.999, 1.000}; // Common, Uncommon, Rare, Legendary
+    private static final double[] SILVER_BOX_PROBABILITIES = {0.995, 0.997, 0.999, 1.000};
+    private static final double[] GOLD_BOX_PROBABILITIES = {0.993, 0.996, 0.998, 1.000};
+    private static final double[] PLATINUM_BOX_PROBABILITIES = {0.990, 0.995, 1.000};
+
+
     public static Box generateBox(String boxType) {
         List<Item> items = new ArrayList<>();
         int itemCount = (boxType.equals("Platinum Box")) ? 3 : 2; // 3 for Platinum, 2 otherwise
@@ -87,105 +93,75 @@ public class GameUtils {
         }
 
         double boxPrice = calculateBoxPrice(boxType);
-        return new Box(boxType, boxPrice, items);
+        return new Box(boxType, boxPrice, items); // Include the items in the Box constructor
     }
 
     private static Item getRandomItem(Item[] itemPool) {
         return itemPool[random.nextInt(itemPool.length)];
     }
 
+    public static List<Item> generateItemsForBox(String boxType) {
+        List<Item> items = new ArrayList<>();
+        int itemCount = (boxType.equals("Platinum Box")) ? 3 : 2; // 3 for Platinum, 2 otherwise
+
+        for (int i = 0; i < itemCount; i++) {
+            items.add(pickItemForBox(boxType));
+        }
+
+        return items;
+    }
 
     private static Item pickItemForBox(String boxType) {
         double chance = random.nextDouble();
         switch (boxType) {
             case "Bronze Box":
-                // Adjusted probabilities for Bronze Box
-                if (chance < 0.70) return getRandomItem(commonItems);
-                else if (chance < 0.95) return getRandomItem(uncommonItems);
-                else if (chance < 0.99) return getRandomItem(rareItems);
-                else return getRandomItem(legendaryItems);
-
+                return pickItemWithProbabilities(chance, BRONZE_BOX_PROBABILITIES);
             case "Silver Box":
-                // Adjusted probabilities for Silver Box
-                if (chance < 0.50) return getRandomItem(commonItems);
-                else if (chance < 0.80) return getRandomItem(uncommonItems);
-                else if (chance < 0.95) return getRandomItem(rareItems);
-                else return getRandomItem(legendaryItems);
-
+                return pickItemWithProbabilities(chance, SILVER_BOX_PROBABILITIES);
             case "Gold Box":
-                // Adjusted probabilities for Gold Box
-                if (chance < 0.30) return getRandomItem(commonItems);
-                else if (chance < 0.60) return getRandomItem(uncommonItems);
-                else if (chance < 0.85) return getRandomItem(rareItems);
-                else return getRandomItem(legendaryItems);
-
+                return pickItemWithProbabilities(chance, GOLD_BOX_PROBABILITIES);
             case "Platinum Box":
-                // Adjusted probabilities for Platinum Box
-                if (chance < 0.20) return getRandomItem(uncommonItems);
-                else if (chance < 0.50) return getRandomItem(rareItems);
-                else return getRandomItem(legendaryItems);
-
+                return pickItemWithProbabilities(chance, PLATINUM_BOX_PROBABILITIES);
             default:
                 return getRandomItem(commonItems);
         }
     }
+
+    // Helper method to pick items based on probabilities
+    private static Item pickItemWithProbabilities(double chance, double[] probabilities) {
+        double cumulativeProbability = 0.0;
+        for (int i = 0; i < probabilities.length; i++) {
+            cumulativeProbability += probabilities[i];
+            if (chance <= cumulativeProbability) {
+                switch (i) {
+                    case 0:
+                        return getRandomItem(commonItems);
+                    case 1:
+                        return getRandomItem(uncommonItems);
+                    case 2:
+                        return getRandomItem(rareItems);
+                    case 3:
+                        return getRandomItem(legendaryItems);
+                }
+            }
+        }
+        // Default to common item if probabilities don't match
+        return getRandomItem(commonItems);
+    }
+
+    // Updated method to calculate box price
     private static double calculateBoxPrice(String boxType) {
-        // Adjusted box pricing
         switch (boxType) {
             case "Bronze Box":
-                return 31.15;
+                return BRONZE_BOX_PRICE;
             case "Silver Box":
-                return 81.93;
+                return SILVER_BOX_PRICE;
             case "Gold Box":
-                return 183.23;
+                return GOLD_BOX_PRICE;
             case "Platinum Box":
-                return 740.63;
+                return PLATINUM_BOX_PRICE;
             default:
                 return 5.0;
         }
     }
 }
-
-
-
-
-
-/*
-EV CALCULATION
-
-
-# Calculating the Expected Value (EV) for each Box Type
-# Average values for each item category
-avg_value_common = 1.50
-avg_value_uncommon = 25.00
-avg_value_rare = 65.00
-avg_value_legendary = 425.00
-
-# Probabilities for each box type
-probabilities = {
-    "Bronze Box": {"Common": 0.70, "Uncommon": 0.25, "Rare": 0.04, "Legendary": 0.01},
-    "Silver Box": {"Common": 0.50, "Uncommon": 0.30, "Rare": 0.15, "Legendary": 0.05},
-    "Gold Box": {"Common": 0.30, "Uncommon": 0.30, "Rare": 0.25, "Legendary": 0.15},
-    "Platinum Box": {"Common": 0, "Uncommon": 0.20, "Rare": 0.30, "Legendary": 0.50}
-}
-
-# Calculating EV for each box type
-ev = {}
-for box, probs in probabilities.items():
-    ev[box] = (probs["Common"] * avg_value_common +
-               probs["Uncommon"] * avg_value_uncommon +
-               probs["Rare"] * avg_value_rare +
-               probs["Legendary"] * avg_value_legendary)
-
-    # Multiplying by 2 for Bronze, Silver, Gold and by 3 for Platinum boxes
-    ev[box] *= 3 if box == "Platinum Box" else 2
-
-ev
-
-
-
-
-
-
-
- */

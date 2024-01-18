@@ -11,8 +11,9 @@ public class Box {
     public Box(String name, double price, List<Item> items) {
         this.name = name;
         this.price = price;
-        this.items = items;
+        this.items = new ArrayList<>(); // Initialize the items list as empty
     }
+
 
     public String getName() {
         return name;
