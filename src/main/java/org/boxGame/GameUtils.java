@@ -99,6 +99,7 @@ public class GameUtils {
                 return 100.0;
             default:
                 return 5.0; // Default price
+
         }
     }
 }

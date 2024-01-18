@@ -12,6 +12,7 @@ public class Box {
         this.name = name;
         this.price = price;
         this.items = items;
+
     }
 
     public String getName() {

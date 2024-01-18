@@ -412,6 +412,7 @@ public class GameLogic {
                 System.out.print(String.format("%" + (i + line.length()) + "s", line) + "\n");
             }
 
+
             Thread.sleep(delay); // Wait for a specified delay between steps
         }
     }
