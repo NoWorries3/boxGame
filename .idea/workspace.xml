@@ -4,11 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="85154305-2c33-4ad2-8ec0-dad0d71b732d" name="Changes" comment="001">
+    <list default="true" id="85154305-2c33-4ad2-8ec0-dad0d71b732d" name="Changes" comment="Major fix">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/boxGame/Box.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/boxGame/Box.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/boxGame/GameLogic.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/boxGame/GameLogic.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/boxGame/GameUtils.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/boxGame/GameUtils.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -153,7 +151,15 @@
       <option name="project" value="LOCAL" />
       <updated>1705548942549</updated>
     </task>
-    <option name="localTasksCounter" value="8" />
+    <task id="LOCAL-00008" summary="Major fix">
+      <option name="closed" value="true" />
+      <created>1705555694366</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1705555694366</updated>
+    </task>
+    <option name="localTasksCounter" value="9" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -166,6 +172,7 @@
     <MESSAGE value="reupload" />
     <MESSAGE value="Box names change, probability updates, EV changed" />
     <MESSAGE value="001" />
-    <option name="LAST_COMMIT_MESSAGE" value="001" />
+    <MESSAGE value="Major fix" />
+    <option name="LAST_COMMIT_MESSAGE" value="Major fix" />
   </component>
 </project>

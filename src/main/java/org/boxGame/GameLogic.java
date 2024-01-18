@@ -16,6 +16,7 @@ public class GameLogic {
     private List<Item> inventory;
     private List<Box> purchasedBoxes;
     private List<Box> availableBoxes = new ArrayList<>(); // Declare and initialize the available boxes list
+
     private List<Box> playerInventory = new ArrayList<>();
 
     // Constructor
@@ -23,7 +24,7 @@ public class GameLogic {
         inventory = new ArrayList<>(); // Initialize inventory as an empty list
         balance = 0; // Set initial balance to 0
         purchasedBoxes = new ArrayList<>();
-        availableBoxes = new ArrayList<>(); // Initialize availble boxes list in the constructor
+        availableBoxes = new ArrayList<>(); // Initialize available boxes list in the constructor
         initializeAvailableBoxes();
     }
 
@@ -56,7 +57,6 @@ public class GameLogic {
                 int choice = Integer.parseInt(input);
                 switch (choice) {
                     case 1:
-
                         depositMoney(scanner);
                         depositCount++;
                         totalDeposited += balance;
@@ -70,15 +70,22 @@ public class GameLogic {
                         totalWon += calculateTotalItemValue();
                         break;
                     case 4:
-                        sellItem(scanner);
+                        openAllBoxes(); // New option: Open All Boxes
+                        totalWon += calculateTotalItemValue();
                         break;
                     case 5:
-                        sellBackBoxes(scanner);
+                        sellItem(scanner);
                         break;
                     case 6:
-                        displayTotalStats(depositCount, totalDeposited, totalSpent);
+                        sellAllItems(); // New option: Sell All Items
                         break;
                     case 7:
+                        sellBackBoxes(scanner);
+                        break;
+                    case 8:
+                        displayTotalStats(depositCount, totalDeposited, totalSpent);
+                        break;
+                    case 9:
                         isPlaying = false;
                         break;
                     default:
@@ -92,7 +99,7 @@ public class GameLogic {
         scanner.close(); // Close the scanner at the end of the game
     }
 
-    // Updated displayMenuOptions method with a decorative frame
+    // Updated displayMenuOptions method with new options
     private void displayMenuOptions() {
         SimpleDateFormat formatter = new SimpleDateFormat("MM/dd/yy - HH:mm");
         String dateString = formatter.format(new Date());
@@ -125,11 +132,13 @@ public class GameLogic {
         // Display menu options
         System.out.println("\n1. Deposit Money");
         System.out.println("2. Buy Box");
-        System.out.println("3. Open Box");
-        System.out.println("4. Sell Item");
-        System.out.println("5. Sell Boxes Back");
-        System.out.println("6. Total Stats");
-        System.out.println("7. Exit");
+        System.out.println("3. Open a Box");
+        System.out.println("4. Open All Boxes"); // New option: Open All Boxes
+        System.out.println("5. Sell an Item");
+        System.out.println("6. Sell All Items"); // New option: Sell All Items
+        System.out.println("7. Sell Boxes Back");
+        System.out.println("8. Total Stats");
+        System.out.println("9. Exit");
     }
 
 
@@ -142,7 +151,7 @@ public class GameLogic {
         final double MAX_DEPOSIT = 1000.00;
         if (amount > 0 && amount <= MAX_DEPOSIT) {
             balance += amount;
-            System.out.println("\n$" + String.format("%.2f", amount) + " added to your balance\n");
+            displayMessageWithFrame("$" + String.format("%.2f", amount) + " added to your balance");
         } else {
             System.out.println("\nInvalid deposit amount. Please enter a value up to $10,000.\n");
         }
@@ -158,7 +167,6 @@ public class GameLogic {
 
 
 
-    // Method for buying a box
     public void buyBox(Scanner scanner) {
         System.out.println("Available Boxes:");
         for (int i = 0; i < availableBoxes.size(); i++) {
@@ -191,10 +199,8 @@ public class GameLogic {
         if (balance >= totalCost) {
             balance -= totalCost;
             for (int i = 0; i < quantity; i++) {
-                purchasedBoxes.add(selectedBox);
-
-                // Generate a new box and add it to available boxes
-                availableBoxes.add(GameUtils.generateBox(selectedBox.getName()));
+                Box purchasedBox = new Box(selectedBox.getName(), selectedBox.getPrice(), new ArrayList<>());
+                purchasedBoxes.add(purchasedBox); // Add the purchased box to purchasedBoxes list
             }
             System.out.println("You bought " + quantity + " " + selectedBox.getName() + "(s)!");
         } else {
@@ -204,20 +210,23 @@ public class GameLogic {
 
 
 
+
     // Method to view purchased but unopened boxes
     private void viewPurchasedBoxes() {
         if (purchasedBoxes.isEmpty()) {
-            System.out.println("No Purchased Boxes.");
+            System.out.println("You don't have any boxes to open.");
         } else {
             System.out.println("Purchased Boxes:");
             for (int i = 0; i < purchasedBoxes.size(); i++) {
                 Box box = purchasedBoxes.get(i);
-                double sellBackPrice = calculateSellBackPrice(box); // Calculate the current sell-back price
+                double sellBackPrice = calculateSellBackPrice(box);
                 System.out.println((i + 1) + ". " + box.getName() + " - Price: $" + box.getPrice() + " (Sell Back: $" + sellBackPrice + ")");
             }
         }
     }
 
+
+    // Method to open a single box
     private void openBoxFromMainMenu(Scanner scanner) {
         if (purchasedBoxes.isEmpty()) {
             System.out.println("You don't have any boxes to open.");
@@ -229,8 +238,8 @@ public class GameLogic {
         scanner.nextLine(); // Consume the newline character
 
         if (boxIndex >= 0 && boxIndex < purchasedBoxes.size()) {
+            Box boxToOpen = purchasedBoxes.get(boxIndex);
             simulateSuspensefulOpening();
-            Box boxToOpen = purchasedBoxes.remove(boxIndex);
             System.out.println("You opened " + boxToOpen.getName() + " and found:");
 
             // Generate random items for the box when it is opened
@@ -239,12 +248,45 @@ public class GameLogic {
             // Display the items won
             for (Item item : boxToOpen.getItems()) {
                 System.out.println("- " + item.getName() + " - $" + item.getBasePrice());
+                inventory.add(item); // Add the item to the inventory
             }
 
-            inventory.addAll(boxToOpen.getItems());
+            // Remove the opened box from purchased boxes
+            purchasedBoxes.remove(boxIndex);
         } else {
             System.out.println("Invalid box selection.");
+            System.out.println("purchasedBoxes.size() = " + purchasedBoxes.size()); // Add this debug print
         }
+    }
+
+
+    // Method to open all purchased boxes
+    public void openAllBoxes() {
+        if (purchasedBoxes.isEmpty()) {
+            System.out.println("You don't have any boxes to open.");
+            return;
+        }
+
+        double totalValue = 0;
+
+        for (Box boxToOpen : purchasedBoxes) {
+            simulateSuspensefulOpening();
+            System.out.println("You opened " + boxToOpen.getName() + " and found:");
+
+            // Generate random items for the box when it is opened
+            boxToOpen.setItems(generateItemsForBox(boxToOpen.getName()));
+
+            // Display the items won
+            for (Item item : boxToOpen.getItems()) {
+                System.out.println("- " + item.getName() + " - $" + item.getBasePrice());
+                inventory.add(item); // Add the item to the inventory
+                totalValue += item.getBasePrice();
+            }
+        }
+
+        purchasedBoxes.clear(); // Clear the list of purchased boxes after opening all
+
+        System.out.println("Total value of items found: $" + String.format("%.2f", totalValue));
     }
 
 
@@ -278,6 +320,28 @@ public class GameLogic {
             System.out.println("Invalid item selection.");
         }
     }
+
+    // Method to sell all items in the inventory
+    public void sellAllItems() {
+        if (inventory.isEmpty()) {
+            System.out.println("Your inventory is empty.");
+            return;
+        }
+
+        double totalSalePrice = 0;
+
+        for (Item item : inventory) {
+            double salePrice = getItemSalePrice(item);
+            totalSalePrice += salePrice;
+        }
+
+        inventory.clear(); // Clear the inventory after selling all items
+        balance += totalSalePrice;
+        totalEarnedFromSelling += totalSalePrice; // Update total earned from selling
+
+        System.out.println("All items sold for a total of $" + String.format("%.2f", totalSalePrice));
+    }
+
 
     // Implement the sellBackBoxes method
     private void sellBackBoxes(Scanner scanner) {
@@ -348,7 +412,7 @@ public class GameLogic {
         try {
             System.out.print("Opening");
             for (int i = 0; i < 3; i++) {
-                Thread.sleep(500); // Wait for 1 second
+                Thread.sleep(100); // Wait for 1 second
                 System.out.print(".");
             }
             System.out.println();
@@ -447,6 +511,19 @@ public class GameLogic {
         System.out.flush();
     }
 
+    private void displayMessageWithFrame(String message) {
+        int messageLength = message.length();
+        StringBuilder frame = new StringBuilder();
+        frame.append("+");
+        for (int i = 0; i < messageLength + 2; i++) {
+            frame.append("-");
+        }
+        frame.append("+");
+
+        System.out.println(frame);
+        System.out.println("| " + message + " |");
+        System.out.println(frame);
+    }
 
 
 }
