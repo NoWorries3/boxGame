@@ -37,11 +37,7 @@ public class GameLogic {
         displayMessageOneLetterAtATime("Wake up, " + playerName, 100);
         simulationAfterLogin();
         Thread.sleep(1000);
-        displayMessageOneLetterAtATime("Follow the white rabbit.", 100);
-        Thread.sleep(1000);
-        System.out.println("  /\\_/\\\n" +
-                " ( o.o )\n" +
-                " > ^ <");
+        followTheWhiteRabbit();
         Thread.sleep(1000);
 
         boolean isPlaying = true;
@@ -101,7 +97,7 @@ public class GameLogic {
         String dateString = formatter.format(new Date());
 
         String playerNameBar = playerName + " | ";
-        String balanceBar = "$" + balance + " | ";
+        String balanceBar = "$" + String.format("%.2f", balance) + " | ";
         String boxesBar = "[" +
                 purchasedBoxes.stream().filter(b -> b.getName().contains("Low")).count() + "] Low | " +
                 "[" + purchasedBoxes.stream().filter(b -> b.getName().contains("Mid")).count() + "] Mid | " +
@@ -142,41 +138,51 @@ public class GameLogic {
         double amount = safeNextDouble(scanner);
         balance += amount;
         totalDeposited = amount; // Corrected to add only the deposited amount
-        System.out.println("$" + amount + " added to your balance");
+        System.out.println("$" + String.format("%.2f", amount) + " added to your balance");
         scanner.nextLine(); // Consume the leftover newline character
     }
 
     // Method for buying a box
     public void buyBox(Scanner scanner) {
-        System.out.println("Available Boxes:");
-        for (int i = 0; i < availableBoxes.size(); i++) {
-            Box box = availableBoxes.get(i);
-            System.out.println((i + 1) + ". " + box.getName() + " - $" + box.getPrice());
+        boolean validSelection = false;
+        int boxIndex = -1;
+
+        while (!validSelection) {
+            System.out.println("Available Boxes:");
+            for (int i = 0; i < availableBoxes.size(); i++) {
+                Box box = availableBoxes.get(i);
+                System.out.println((i + 1) + ". " + box.getName() + " - $" + box.getPrice());
+            }
+
+            System.out.print("Enter the number of the box to buy: ");
+            boxIndex = safeNextInt(scanner) - 1;
+            scanner.nextLine(); // Consume the newline character after reading an integer
+
+            // Check if the selected box number is valid
+            if (boxIndex >= 0 && boxIndex < availableBoxes.size()) {
+                validSelection = true;
+            } else {
+                System.out.println("Invalid box selection. Please try again.");
+            }
         }
-        System.out.print("Enter the number of the box to buy: ");
-        int boxIndex = safeNextInt(scanner) - 1;
-        scanner.nextLine(); // Consume the newline character after reading an integer
 
         System.out.print("Enter the quantity of boxes to buy: ");
         int quantity = safeNextInt(scanner);
         scanner.nextLine(); // Consume the newline character after reading an integer
 
-        if (boxIndex >= 0 && boxIndex < availableBoxes.size()) {
-            Box selectedBox = availableBoxes.get(boxIndex);
-            double totalCost = selectedBox.getPrice() * quantity;
-            if (balance >= totalCost) {
-                balance -= totalCost;
-                for (int i = 0; i < quantity; i++) {
-                    purchasedBoxes.add(selectedBox);
-                }
-                System.out.println("You bought " + quantity + " " + selectedBox.getName() + "(s)!");
-            } else {
-                System.out.println("Insufficient balance to complete this purchase.");
+        Box selectedBox = availableBoxes.get(boxIndex);
+        double totalCost = selectedBox.getPrice() * quantity;
+        if (balance >= totalCost) {
+            balance -= totalCost;
+            for (int i = 0; i < quantity; i++) {
+                purchasedBoxes.add(selectedBox);
             }
+            System.out.println("You bought " + quantity + " " + selectedBox.getName() + "(s)!");
         } else {
-            System.out.println("Invalid box selection.");
+            System.out.println("Insufficient balance to complete this purchase.");
         }
     }
+
 
     // Method to view purchased but unopened boxes
     private void viewPurchasedBoxes() {
@@ -386,5 +392,23 @@ public class GameLogic {
         }
         System.out.println(); // Move to the next line after typing the message
     }
+
+    public void followTheWhiteRabbit() throws InterruptedException {
+        final String message = "Follow the white rabbit.  /\\_/\\ ( o.o ) > ^ <";
+        final int width = 30; // Width of the console window or desired movement area
+
+        for (int i = 0; i < width; i++) {
+            clearConsole();
+            System.out.println(String.format("%" + (i + message.length()) + "s", message));
+            Thread.sleep(200); // Delay in milliseconds
+        }
+    }
+
+    private void clearConsole() {
+        // Clears the console. This method works in some environments but not all.
+        System.out.print("\033[H\033[2J");
+        System.out.flush();
+    }
+
 
 }
