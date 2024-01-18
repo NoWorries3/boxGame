@@ -134,13 +134,13 @@ public class GameUtils {
         // Adjusted box pricing
         switch (boxType) {
             case "Bronze Box":
-                return 28.30;
+                return 31.15;
             case "Silver Box":
-                return 78.50;
+                return 81.93;
             case "Gold Box":
-                return 175.90;
+                return 183.23;
             case "Platinum Box":
-                return 711.0;
+                return 740.63;
             default:
                 return 5.0;
         }
