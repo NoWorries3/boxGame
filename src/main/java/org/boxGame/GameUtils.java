@@ -1,6 +1,7 @@
 package org.boxGame;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Random;
 
@@ -8,15 +9,29 @@ public class GameUtils {
     private static final Random random = new Random();
     private static Item previousSelectedItem = null;
     private static final Item[] commonItems = {
-            new Item("Iron Nail", "Common", 0.30),
-            new Item("Glass Marbles", "Common", 0.50),
-            new Item("Clay Pot", "Common", 0.75),
             new Item("Old Coin", "Common", 1.00),
-            new Item("Brass Ring", "Common", 1.25),
             new Item("Worn-Out Gloves", "Common", 1.50),
             new Item("Basic Compass", "Common", 2.00),
             new Item("Wooden Figurine", "Common", 2.50),
             new Item("Rusty Key", "Common", 3.00),
+            new Item("Worn-Out Gloves", "Common", 1.50),
+            new Item("Basic Compass", "Common", 2.00),
+            new Item("Wooden Figurine", "Common", 2.50),
+            new Item("Ceramic Mug", "Common", 4.00),
+            new Item("Cotton Scarf", "Common", 5.50),
+            new Item("Flint Stone", "Common", 6.00),
+            new Item("Braided Belt", "Common", 6.50),
+            new Item("Terracotta Vase", "Common", 7.00),
+            new Item("Copper Earrings", "Common", 8.00),
+            new Item("Stone Pendant", "Common", 9.00),
+            new Item("Linen Handkerchief ", "Common", 10.00),
+            new Item("Iron Bracelet", "Common", 15.00),
+            new Item("Carved Wooden Box", "Common", 18.00),
+            new Item("Glass Beads", "Common", 20.00),
+            new Item("Small Tapestry", "Common", 22.00),
+            new Item("Serdar's Joint", "Common", 25.00),
+            new Item("Embroidered Pouch", "Common", 28.00),
+            new Item("Handheld Mirror", "Common", 32.00)
     };
 
     private static final Item[] uncommonItems = {
@@ -78,22 +93,28 @@ public class GameUtils {
     private static final double GOLD_BOX_PRICE = 183.23;
     private static final double PLATINUM_BOX_PRICE = 740.63;
 
-    private static final double[] BRONZE_BOX_PROBABILITIES = {0.996, 0.998, 0.999, 1.000}; // Common, Uncommon, Rare, Legendary
-    private static final double[] SILVER_BOX_PROBABILITIES = {0.995, 0.997, 0.999, 1.000};
-    private static final double[] GOLD_BOX_PROBABILITIES = {0.993, 0.996, 0.998, 1.000};
-    private static final double[] PLATINUM_BOX_PROBABILITIES = {0.990, 0.995, 1.000};
+    // Updated probabilities to increase the chance of getting higher-value items
+    private static final double[] BRONZE_BOX_PROBABILITIES = {0.40, 0.75, 0.85, 0.95}; // Increased chances for better items
+    private static final double[] SILVER_BOX_PROBABILITIES = {0.60, 0.75, 0.87, 0.97};
+    private static final double[] GOLD_BOX_PROBABILITIES = {0.65, 0.80, 0.90, 0.98};
+    private static final double[] PLATINUM_BOX_PROBABILITIES = {0.70, 0.83, 0.92, 0.99};
 
+
+
+    private static int lowerValueItemCount = 0; // Counts consecutive lower-value item picks
+    private static final int LOWER_VALUE_THRESHOLD = 3; // Threshold after which chances for better items increase
+    private static final int HISTORY_SIZE = 5; // Size of the recent items history
+    private static final LinkedList<Item> recentItemHistory = new LinkedList<>();
 
     public static Box generateBox(String boxType) {
         List<Item> items = new ArrayList<>();
-        int itemCount = (boxType.equals("Platinum Box")) ? 3 : 2; // 3 for Platinum, 2 otherwise
+        int itemCount = boxType.equals("Platinum Box") ? 3 : 2;
 
         for (int i = 0; i < itemCount; i++) {
             items.add(pickItemForBox(boxType));
         }
 
-        double boxPrice = calculateBoxPrice(boxType);
-        return new Box(boxType, boxPrice, items); // Include the items in the Box constructor
+        return new Box(boxType, calculateBoxPrice(boxType), items);
     }
 
     private static Item getRandomItem(Item[] itemPool) {
@@ -111,21 +132,118 @@ public class GameUtils {
         return items;
     }
 
+    private static double averageValue(Item[] items) {
+        double totalValue = 0;
+        for (Item item : items) {
+            totalValue += item.getBasePrice();
+        }
+        return totalValue / items.length;
+    }
+    private static double calculateEV(double[] probabilities, double[] prices, double bronzeBoxPrice) {
+        double ev = 0;
+        for (int i = 0; i < probabilities.length; i++) {
+            ev += probabilities[i] * prices[i];
+        }
+        return ev - bronzeBoxPrice;
+    }
+
+    private static void calculateAndAdjustEV() {
+        double evBronzeBox = calculateEV(BRONZE_BOX_PROBABILITIES, new double[]{
+                averageValue(commonItems),
+                averageValue(uncommonItems),
+                averageValue(rareItems),
+                averageValue(legendaryItems)
+        }, BRONZE_BOX_PRICE);
+
+        // Repeat the same for Silver, Gold, and Platinum boxes
+        // ...
+
+        // Check and adjust the EV values
+        // ...
+    }
+
+
     private static Item pickItemForBox(String boxType) {
         double chance = random.nextDouble();
-        switch (boxType) {
-            case "Bronze Box":
-                return pickItemWithProbabilities(chance, BRONZE_BOX_PROBABILITIES);
-            case "Silver Box":
-                return pickItemWithProbabilities(chance, SILVER_BOX_PROBABILITIES);
-            case "Gold Box":
-                return pickItemWithProbabilities(chance, GOLD_BOX_PROBABILITIES);
-            case "Platinum Box":
-                return pickItemWithProbabilities(chance, PLATINUM_BOX_PROBABILITIES);
-            default:
-                return getRandomItem(commonItems);
+        if (lowerValueItemCount >= LOWER_VALUE_THRESHOLD) {
+            chance *= 0.5; // Increase chance for better items more significantly
+        }
+
+        Item selectedItem = pickItemWithAdjustedProbability(chance, boxType);
+
+        if (selectedItem.getBasePrice() < 15) {
+            lowerValueItemCount++;
+        } else {
+            lowerValueItemCount = 0;
+        }
+
+        updateRecentItemHistory(selectedItem);
+        return selectedItem;
+    }
+
+
+
+    private static Item pickItemWithAdjustedProbability(double chance, String boxType) {
+        Item selectedItem;
+        int attempt = 0;
+        do {
+            selectedItem = pickItemWithProbabilities(chance, getProbabilitiesForBoxType(boxType));
+            attempt++;
+        } while (recentItemHistory.contains(selectedItem) && attempt < 5);
+
+        return selectedItem;
+    }
+
+    private static void updateRecentItemHistory(Item item) {
+        if (recentItemHistory.size() >= HISTORY_SIZE) {
+            recentItemHistory.poll();
+        }
+        recentItemHistory.offer(item);
+    }
+
+        private static double[] getProbabilitiesForBoxType(String boxType) {
+            switch (boxType) {
+                case "Bronze Box": return BRONZE_BOX_PROBABILITIES;
+                case "Silver Box": return SILVER_BOX_PROBABILITIES;
+                case "Gold Box": return GOLD_BOX_PROBABILITIES;
+                case "Platinum Box": return PLATINUM_BOX_PROBABILITIES;
+                default: return new double[] {1.0}; // Default to common
+            }
+        }
+
+    static void adjustBoxProbabilities() {
+        // Calculate the EV for each box and adjust probabilities accordingly
+        adjustEVForBoxType("Bronze Box", BRONZE_BOX_PRICE, BRONZE_BOX_PROBABILITIES);
+        adjustEVForBoxType("Silver Box", SILVER_BOX_PRICE, SILVER_BOX_PROBABILITIES);
+        adjustEVForBoxType("Gold Box", GOLD_BOX_PRICE, GOLD_BOX_PROBABILITIES);
+        adjustEVForBoxType("Platinum Box", PLATINUM_BOX_PRICE, PLATINUM_BOX_PROBABILITIES);
+    }
+
+    private static void adjustEVForBoxType(String boxType, double boxPrice, double[] probabilities) {
+        double currentEV = calculateEV(probabilities, new double[]{
+                averageValue(commonItems),
+                averageValue(uncommonItems),
+                averageValue(rareItems),
+                averageValue(legendaryItems)
+        }, boxPrice);
+
+        // Adjust the probabilities to meet the EV criteria
+        while (currentEV < 1.3 * boxPrice) { // Ensure at least 20% return
+            // Increase the probability of higher-value items slightly
+            for (int i = 1; i < probabilities.length; i++) {
+                probabilities[i] += 0.02; // Increment by 2%
+            }
+
+            // Recalculate the EV
+            currentEV = calculateEV(probabilities, new double[]{
+                    averageValue(commonItems),
+                    averageValue(uncommonItems),
+                    averageValue(rareItems),
+                    averageValue(legendaryItems)
+            }, boxPrice);
         }
     }
+
 
     // Helper method to pick items based on probabilities
     private static Item pickItemWithProbabilities(double chance, double[] probabilities) {
@@ -134,18 +252,13 @@ public class GameUtils {
             cumulativeProbability += probabilities[i];
             if (chance <= cumulativeProbability) {
                 switch (i) {
-                    case 0:
-                        return getRandomItem(commonItems);
-                    case 1:
-                        return getRandomItem(uncommonItems);
-                    case 2:
-                        return getRandomItem(rareItems);
-                    case 3:
-                        return getRandomItem(legendaryItems);
+                    case 0: return getRandomItem(commonItems);
+                    case 1: return getRandomItem(uncommonItems);
+                    case 2: return getRandomItem(rareItems);
+                    case 3: return getRandomItem(legendaryItems);
                 }
             }
         }
-        // Default to common item if probabilities don't match
         return getRandomItem(commonItems);
     }
 

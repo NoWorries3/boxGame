@@ -6,6 +6,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.Scanner;
 
+import static org.boxGame.GameUtils.adjustBoxProbabilities;
 import static org.boxGame.GameUtils.generateItemsForBox;
 
 public class GameLogic {
@@ -25,6 +26,7 @@ public class GameLogic {
         balance = 0; // Set initial balance to 0
         purchasedBoxes = new ArrayList<>();
         availableBoxes = new ArrayList<>(); // Initialize available boxes list in the constructor
+        adjustBoxProbabilities();
         initializeAvailableBoxes();
     }
 
@@ -144,11 +146,11 @@ public class GameLogic {
 
     // Method for player to deposit money
     public void depositMoney(Scanner scanner) {
-        System.out.print("Enter amount to deposit (Max $1,000): ");
+        System.out.print("Enter amount to deposit (Max $1,000,000): ");
         double amount = safeNextDouble(scanner);
         scanner.nextLine(); // Consume the leftover newline character
 
-        final double MAX_DEPOSIT = 1000.00;
+        final double MAX_DEPOSIT = 1000000.00;
         if (amount > 0 && amount <= MAX_DEPOSIT) {
             balance += amount;
             displayMessageWithFrame("$" + String.format("%.2f", amount) + " added to your balance");
