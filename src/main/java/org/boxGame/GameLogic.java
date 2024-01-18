@@ -400,7 +400,7 @@ public class GameLogic {
                 " ( o.o )",
                 "  > ^ <"
         };
-        final int steps = 10; // Number of steps to move the rabbit
+        final int steps = 3; // Number of steps to move the rabbit
         final int delay = 1000; // Delay in milliseconds for each step
 
         for (int i = 0; i < steps; i++) {
