@@ -37,11 +37,8 @@ public class GameLogic {
         displayMessageOneLetterAtATime("Wake up, " + playerName, 100);
         simulationAfterLogin();
         Thread.sleep(1000);
-        displayMessageOneLetterAtATime("Follow the white rabbit.", 100);
-        Thread.sleep(1000);
-        System.out.println("  /\\_/\\\n" +
-                " ( o.o )\n" +
-                " > ^ <");
+        displayMessageOneLetterAtATime("Follow the white rabbit", 100);
+        followTheWhiteRabbit();
         Thread.sleep(1000);
 
         boolean isPlaying = true;
@@ -101,7 +98,7 @@ public class GameLogic {
         String dateString = formatter.format(new Date());
 
         String playerNameBar = playerName + " | ";
-        String balanceBar = "$" + balance + " | ";
+        String balanceBar = "$" + String.format("%.2f", balance) + " | ";
         String boxesBar = "[" +
                 purchasedBoxes.stream().filter(b -> b.getName().contains("Low")).count() + "] Low | " +
                 "[" + purchasedBoxes.stream().filter(b -> b.getName().contains("Mid")).count() + "] Mid | " +
@@ -142,7 +139,7 @@ public class GameLogic {
         double amount = safeNextDouble(scanner);
         balance += amount;
         totalDeposited = amount; // Corrected to add only the deposited amount
-        System.out.println("$" + amount + " added to your balance");
+        System.out.println("$" + String.format("%.2f", amount) + " added to your balance");
         scanner.nextLine(); // Consume the leftover newline character
     }
 
@@ -157,26 +154,39 @@ public class GameLogic {
         int boxIndex = safeNextInt(scanner) - 1;
         scanner.nextLine(); // Consume the newline character after reading an integer
 
+        if (boxIndex < 0 || boxIndex >= availableBoxes.size()) {
+            System.out.println("Invalid box selection.");
+            return;
+        }
+
         System.out.print("Enter the quantity of boxes to buy: ");
         int quantity = safeNextInt(scanner);
         scanner.nextLine(); // Consume the newline character after reading an integer
 
-        if (boxIndex >= 0 && boxIndex < availableBoxes.size()) {
-            Box selectedBox = availableBoxes.get(boxIndex);
-            double totalCost = selectedBox.getPrice() * quantity;
-            if (balance >= totalCost) {
-                balance -= totalCost;
-                for (int i = 0; i < quantity; i++) {
-                    purchasedBoxes.add(selectedBox);
-                }
-                System.out.println("You bought " + quantity + " " + selectedBox.getName() + "(s)!");
-            } else {
-                System.out.println("Insufficient balance to complete this purchase.");
-            }
-        } else {
-            System.out.println("Invalid box selection.");
+        // Define a maximum quantity
+        final int MAX_QUANTITY = 10000; // Adjust as needed
+        if (quantity <= 0 || quantity > MAX_QUANTITY) {
+            System.out.println("Invalid quantity. Please enter a number between 1 and " + MAX_QUANTITY + ".");
+            return;
         }
+
+        Box selectedBox = availableBoxes.get(boxIndex);
+        long totalCost = (long) selectedBox.getPrice() * quantity;
+
+        // Check if total cost exceeds the user's balance
+        if (balance < totalCost) {
+            System.out.println("Insufficient balance to complete this purchase.");
+            return;
+        }
+
+        // Process the purchase
+        balance -= totalCost;
+        for (int i = 0; i < quantity; i++) {
+            purchasedBoxes.add(selectedBox);
+        }
+        System.out.println("You bought " + quantity + " " + selectedBox.getName() + "(s)!");
     }
+
 
     // Method to view purchased but unopened boxes
     private void viewPurchasedBoxes() {
@@ -386,5 +396,35 @@ public class GameLogic {
         }
         System.out.println(); // Move to the next line after typing the message
     }
+
+    public void followTheWhiteRabbit() throws InterruptedException {
+        final String[] rabbitLines = {
+                "  /\\_/\\",
+                " ( o.o )",
+                "  > ^ <"
+        };
+        final int steps = 10; // Number of steps to move the rabbit
+        final int delay = 1000; // Delay in milliseconds for each step
+
+        for (int i = 0; i < steps; i++) {
+            // Clear the console (optional, if supported)
+            clearConsole();
+
+            // Print each line of the rabbit, shifted by 'i' spaces
+            for (String line : rabbitLines) {
+                System.out.print(String.format("%" + (i + line.length()) + "s", line) + "\n");
+            }
+
+            Thread.sleep(delay); // Wait for a specified delay between steps
+        }
+    }
+
+    private void clearConsole() {
+        // Clears the console. This method works in some environments but not all.
+        System.out.print("\033[H\033[2J");
+        System.out.flush();
+    }
+
+
 
 }
