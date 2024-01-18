@@ -22,11 +22,11 @@ public class GameLogic {
         availableBoxes = new ArrayList<>(); // Initialize availableBoxes as an empty list
         purchasedBoxes = new ArrayList<>();
 
-        // Initialize available boxes as per the new risk-based system
-        availableBoxes.add(GameUtils.generateBox("Low-Risk Box"));
-        availableBoxes.add(GameUtils.generateBox("Mid-Risk Box"));
-        availableBoxes.add(GameUtils.generateBox("High-Risk Box"));
-        availableBoxes.add(GameUtils.generateBox("Extreme-Risk Box"));
+        // Initialize available boxes as per the grade-based system
+        availableBoxes.add(GameUtils.generateBox("Bronze Box"));
+        availableBoxes.add(GameUtils.generateBox("Silver Box"));
+        availableBoxes.add(GameUtils.generateBox("Gold Box"));
+        availableBoxes.add(GameUtils.generateBox("Platinum Box"));
         // Repeat or adjust as needed
     }
 
@@ -100,10 +100,10 @@ public class GameLogic {
         String playerNameBar = playerName + " | ";
         String balanceBar = "$" + String.format("%.2f", balance) + " | ";
         String boxesBar = "[" +
-                purchasedBoxes.stream().filter(b -> b.getName().contains("Low")).count() + "] Low | " +
-                "[" + purchasedBoxes.stream().filter(b -> b.getName().contains("Mid")).count() + "] Mid | " +
-                "[" + purchasedBoxes.stream().filter(b -> b.getName().contains("High")).count() + "] High | " +
-                "[" + purchasedBoxes.stream().filter(b -> b.getName().contains("Extreme")).count() + "] Extreme";
+                purchasedBoxes.stream().filter(b -> b.getName().contains("Bronze")).count() + "] Bronze | " +
+                "[" + purchasedBoxes.stream().filter(b -> b.getName().contains("Silver")).count() + "] Silver | " +
+                "[" + purchasedBoxes.stream().filter(b -> b.getName().contains("Gold")).count() + "] Gold | " +
+                "[" + purchasedBoxes.stream().filter(b -> b.getName().contains("Platinum")).count() + "] Platinum";
 
         // Calculate the total length of the top bar
         int totalLength = playerNameBar.length() + balanceBar.length() + dateString.length() + boxesBar.length();
