@@ -22,7 +22,6 @@ public class Item {
     public double getBasePrice() {
         return basePrice;
     }
-
     public void setName(String name) {
         this.name = name;
     }

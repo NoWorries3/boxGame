@@ -129,7 +129,6 @@ public class GameUtils {
                 return getRandomItem(commonItems);
         }
     }
-
     private static double calculateBoxPrice(String boxType) {
         // Adjusted box pricing
         switch (boxType) {

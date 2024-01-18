@@ -327,6 +327,7 @@ public class GameLogic {
         return totalValue;
     }
 
+
     private void simulateSuspensefulOpening() {
         try {
             System.out.print("Opening");
